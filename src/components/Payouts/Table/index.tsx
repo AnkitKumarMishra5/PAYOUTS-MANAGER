@@ -1,35 +1,45 @@
-import { MainTable, THText, TDText, TDBadge } from './index.styles'
+import React from 'react';
+import { MainTable, TR, THText, TDText, TDBadge } from './index.styles'
 
-function Table() {
+import { Payout } from '../../../interfaces/common'
+interface TableProps {
+  payouts: Payout[];
+}
+
+const Table: React.FC<TableProps> = ({ payouts }) => {
+  const dateOptions = {
+    weekday: 'short' as const,
+    month: 'short' as const,
+    day: 'numeric' as const,
+    hour: 'numeric' as const,
+    minute: 'numeric' as const,
+    hour12: false
+  }
   return (
     <MainTable striped>
       <thead>
-        <tr>
+        <TR>
           <THText>Username</THText>
           <THText>Date & Time</THText>
           <THText>Status</THText>
           <THText>Value</THText>
-        </tr>
+        </TR>
       </thead>
       <tbody>
-        <tr>
-          <TDText>1</TDText>
-          <TDText>Mark</TDText>
-          <TDText status><TDBadge>Pending</TDBadge></TDText>
-          <TDText price>@mdo</TDText>
-        </tr>
-        <tr>
-          <TDText>2</TDText>
-          <TDText>Jacob</TDText>
-          <TDText status><TDBadge paid>Paid</TDBadge></TDText>
-          <TDText price>@fat</TDText>
-        </tr>
-        <tr>
-          <TDText>3</TDText>
-          <TDText>Larry the Bird</TDText>
-          <TDText status><TDBadge paid>Paid</TDBadge></TDText>
-          <TDText price>@twitter</TDText>
-        </tr>
+        {payouts.map((payout, index) => (
+          <TR key={index}>
+            <TDText>{payout.username}</TDText>
+            <TDText>{new Date(payout.dateAndTime).toLocaleString('en-US', dateOptions)}</TDText>
+            <TDText status>
+              <TDBadge
+                paid={payout.status === 'Completed'}
+              >
+                {payout.status === 'Completed' ? 'Paid' : 'Pending'}
+              </TDBadge>
+            </TDText>
+            <TDText price>{payout.value}</TDText>
+          </TR>
+        ))}
       </tbody>
     </MainTable>
   );

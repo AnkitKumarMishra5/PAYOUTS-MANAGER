@@ -6,6 +6,9 @@ export const MainContainer = styled(Container)`
   padding-bottom: 50px;
 `;
 
+export const SubContainer = styled(Container)`
+`;
+
 export const MainHeading = styled.h1`
   color: #272B30;
   font-family: 'Inter', sans-serif;
@@ -14,13 +17,14 @@ export const MainHeading = styled.h1`
   font-weight: 600;
   line-height: 48px;
   letter-spacing: -0.8px;
-  padding-bottom: 60px;
+  padding-bottom: 50px;
 `;
 
 export const TableHeading = styled.h3`
   display: flex;
   align-items: center;
   gap: 16px;
+  padding-bottom: 10px;
 `;
 
 export const THText = styled.span`

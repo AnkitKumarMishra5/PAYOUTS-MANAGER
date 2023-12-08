@@ -25,14 +25,18 @@ export const MainTable = styled(Table)`
   }
 `;
 
+export const TR = styled.tr`
+`;
+
 export const THText = styled.th`
-  color: #6F767E !important;
   font-family: 'Inter', sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
   line-height: 12px;
   letter-spacing: -0.12px;
+  padding: 15px 25px !important;
+  color: #6F767E !important;
 `;
 
 export const TDText = styled.td<TDTextProps>`
@@ -43,10 +47,11 @@ export const TDText = styled.td<TDTextProps>`
   font-weight: 600;
   line-height: 24px;
   letter-spacing: -0.14px;
+  padding: 15px 25px !important;
 `;
 
 export const TDBadge = styled.span<TDBadgeProps>`
   background-color: ${(props) => (props.paid ? '#60CA57' : 'rgba(111, 118, 126, 0.40)')};
-  padding: 2px 8px;
+  padding: 5px 10px;
   border-radius: 6px;
 `;
