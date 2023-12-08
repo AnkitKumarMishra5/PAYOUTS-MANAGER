@@ -27,6 +27,11 @@ export const TableHeading = styled.h3`
   padding-bottom: 10px;
 `;
 
+export const SearchContainer = styled.div`
+  width: 400px;
+  float: right;
+`;
+
 export const THText = styled.span`
   color: #1A1D1F;
   font-family: 'Inter', sans-serif;
