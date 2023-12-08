@@ -13,7 +13,18 @@ import axios from 'axios'
 import { Payout } from '../../interfaces/common'
 import Table from './Table'
 
-function Payouts() {
+const debounce = (func: Function, delay: number) => {
+  let timeoutId: NodeJS.Timeout;
+
+  return (...args: any[]) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      func(...args);
+    }, delay);
+  };
+};
+
+const Payouts = () => {
   const [payouts, setPayouts] = useState<Payout[]>([])
 
   useEffect(() => {
@@ -31,10 +42,8 @@ function Payouts() {
     }
   }
 
-  const searchPayouts = async (e: React.FormEvent<HTMLInputElement>) => {
+  const searchPayouts = async (query: string) => {
     try {
-      const query = (e.target as HTMLInputElement).value
-
       if(query !== '') {
         const res = await axios.get(
           (process.env.REACT_APP_SEARCH_PAYOUTS_ENDPOINT) as string, 
@@ -52,6 +61,13 @@ function Payouts() {
     }
   }
 
+  const debouncedSearchPayouts = debounce(searchPayouts, 500);
+
+  const handleSearchInput = (e: React.FormEvent<HTMLInputElement>) => {
+    const query: string = (e.target as HTMLInputElement).value;
+    debouncedSearchPayouts(query);
+  };
+
   return (
     <MainContainer>
       <MainHeading>Payouts</MainHeading>
@@ -65,7 +81,7 @@ function Payouts() {
             <Form.Control
               placeholder="Search username"
               aria-label="Search username"
-              onInput={searchPayouts}
+              onInput={handleSearchInput}
             />
             <Button variant="outline-secondary">
               Search
